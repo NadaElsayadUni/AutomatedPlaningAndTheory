@@ -1,0 +1,89 @@
+# IMV problem loader for plansys2_terminal (one command per line).
+
+set instance entrance other-site
+set instance tunnel other-site
+set instance halla other-site
+set instance hallb beta-hall
+set instance cryo other-site
+set instance pod1 other-site
+set instance pod2 other-site
+set instance stasis other-site
+
+set instance a1 artifact
+set instance a2 artifact
+set instance b1 artifact
+set instance b2 artifact
+set instance cs1 artifact
+set instance cs2 artifact
+
+set instance r1 robot
+set instance slot1 slot
+set instance slot2 slot
+set instance vs vunit
+
+set predicate (at r1 entrance)
+set predicate (manip_free r1)
+set predicate (sealing_off vs)
+set predicate (tunnel tunnel)
+set predicate (non_tunnel entrance)
+set predicate (non_tunnel halla)
+set predicate (non_tunnel hallb)
+set predicate (non_tunnel cryo)
+set predicate (non_tunnel pod1)
+set predicate (non_tunnel pod2)
+set predicate (non_tunnel stasis)
+set predicate (robot_slot r1 slot1)
+set predicate (robot_slot r1 slot2)
+set predicate (slot_free r1 slot1)
+set predicate (slot_free r1 slot2)
+set predicate (artifact_at a1 halla)
+set predicate (artifact_at a2 halla)
+set predicate (artifact_at b1 hallb)
+set predicate (artifact_at b2 hallb)
+set predicate (artifact_at cs1 cryo)
+set predicate (artifact_at cs2 cryo)
+set predicate (connected entrance tunnel)
+set predicate (connected tunnel entrance)
+set predicate (connected tunnel cryo)
+set predicate (connected cryo tunnel)
+set predicate (connected tunnel pod1)
+set predicate (connected pod1 tunnel)
+set predicate (connected tunnel pod2)
+set predicate (connected pod2 tunnel)
+set predicate (connected tunnel halla)
+set predicate (connected halla tunnel)
+set predicate (connected tunnel hallb)
+set predicate (connected hallb tunnel)
+set predicate (connected tunnel stasis)
+set predicate (connected stasis tunnel)
+set predicate (hall_b_safe)
+
+# Phase 1
+set goal (and (artifact_at b1 pod1))
+get plan
+run
+
+# Phase 2
+set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2))
+get plan
+run
+
+# Phase 3a
+set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis))
+get plan
+run
+
+# Phase 3b
+set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis) (artifact_at cs2 stasis))
+get plan
+run
+
+# Phase 3c
+set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis) (artifact_at cs2 stasis) (artifact_at a1 cryo))
+get plan
+run
+
+# Phase 3d (full final goal)
+set goal (and (artifact_at a1 cryo) (artifact_at a2 cryo) (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis) (artifact_at cs2 stasis))
+get plan
+run

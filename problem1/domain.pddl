@@ -1,0 +1,26 @@
+(define (domain imv)
+  (:requirements :strips :typing)
+  (:types location artifact robot)
+  (:predicates
+    (robot_at ?l - location)
+    (artifact_at ?a - artifact ?l - location)
+    (robot_carrying ?a - artifact)
+    (empty ?r - robot)
+    (connected ?from ?to - location)
+  )
+  (:action move
+    :parameters (?from ?to - location)
+    :precondition (and (robot_at ?from) (connected ?from ?to))
+    :effect (and (not (robot_at ?from)) (robot_at ?to))
+  )
+  (:action load
+    :parameters (?r - robot ?a - artifact ?l - location)
+    :precondition (and (robot_at ?l) (artifact_at ?a ?l) (empty ?r))
+    :effect (and (not (empty ?r)) (robot_carrying ?a) (not (artifact_at ?a ?l)))
+  )
+  (:action unload
+    :parameters (?r - robot ?a - artifact ?l - location)
+    :precondition (and (robot_at ?l) (robot_carrying ?a))
+    :effect (and (empty ?r) (artifact_at ?a ?l) (not (robot_carrying ?a)))
+  )
+)

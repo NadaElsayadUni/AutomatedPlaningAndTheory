@@ -1,0 +1,38 @@
+; Plan found with metric 0.031
+; States evaluated so far: 77
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.30
+0.000: (move entrance tunnel)  [0.001]
+0.001: (move tunnel hallb)  [0.001]
+0.002: (load r1 b2 hallb)  [0.001]
+0.003: (move hallb tunnel)  [0.001]
+0.004: (move tunnel pod2)  [0.001]
+0.005: (unload r1 b2 pod2)  [0.001]
+0.006: (move pod2 tunnel)  [0.001]
+0.007: (move tunnel hallb)  [0.001]
+0.008: (load r1 b1 hallb)  [0.001]
+0.009: (move hallb tunnel)  [0.001]
+0.010: (move tunnel pod1)  [0.001]
+0.011: (unload r1 b1 pod1)  [0.001]
+0.012: (move pod1 tunnel)  [0.001]
+0.013: (move tunnel halla)  [0.001]
+0.014: (load r1 a2 halla)  [0.001]
+0.015: (move halla tunnel)  [0.001]
+0.016: (move tunnel cryo)  [0.001]
+0.017: (unload r1 a2 cryo)  [0.001]
+0.018: (load r1 cs2 cryo)  [0.001]
+0.019: (move cryo tunnel)  [0.001]
+0.020: (move tunnel stasis)  [0.001]
+0.021: (unload r1 cs2 stasis)  [0.001]
+0.022: (move stasis tunnel)  [0.001]
+0.023: (move tunnel halla)  [0.001]
+0.024: (load r1 a1 halla)  [0.001]
+0.025: (move halla tunnel)  [0.001]
+0.026: (move tunnel cryo)  [0.001]
+0.027: (unload r1 a1 cryo)  [0.001]
+0.028: (load r1 cs1 cryo)  [0.001]
+0.029: (move cryo tunnel)  [0.001]
+0.030: (move tunnel stasis)  [0.001]
+0.031: (unload r1 cs1 stasis)  [0.001]
+
+;  * All goal deadlines now no later than 0.031

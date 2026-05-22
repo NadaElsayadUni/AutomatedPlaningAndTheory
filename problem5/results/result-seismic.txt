@@ -1,0 +1,102 @@
+> set goal (and (artifact_at b1 pod1))
+> get plan
+plan:
+0:      (activate_sealing_site r1 entrance vs)  [1]
+1.001:  (move_into_tunnel_from_site r1 entrance tunnel vs)      [3]
+4.002:  (move_out_of_tunnel_to_beta r1 tunnel hallb vs) [3]
+7.003:  (deactivate_sealing_beta r1 hallb vs)   [1]
+8.004:  (load_beta r1 b1 hallb slot1 vs)        [1]
+9.005:  (activate_sealing_beta r1 hallb vs)     [1]
+10.006: (move_into_tunnel_from_beta r1 hallb tunnel vs) [3]
+13.007: (move_out_of_tunnel_to_site r1 tunnel pod1 vs)  [3]
+16.008: (deactivate_sealing_site r1 pod1 vs)    [1]
+17.009: (unload_site r1 b1 pod1 slot1 vs)       [1]
+> run
+[INFO] [1777929221.004431006] [executor_client]: Plan Succeeded
+
+Successful finished
+> set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2))
+> get plan
+plan:
+0:      (activate_sealing_site r1 pod1 vs)      [1]
+1.001:  (move_into_tunnel_from_site r1 pod1 tunnel vs)  [3]
+4.002:  (move_out_of_tunnel_to_beta r1 tunnel hallb vs) [3]
+7.003:  (deactivate_sealing_beta r1 hallb vs)   [1]
+8.004:  (load_beta r1 b2 hallb slot1 vs)        [1]
+9.005:  (activate_sealing_beta r1 hallb vs)     [1]
+10.006: (move_into_tunnel_from_beta r1 hallb tunnel vs) [3]
+13.007: (move_out_of_tunnel_to_site r1 tunnel pod2 vs)  [3]
+16.008: (deactivate_sealing_site r1 pod2 vs)    [1]
+17.009: (unload_site r1 b2 pod2 slot1 vs)       [1]
+> run
+[INFO] [1777929309.991004422] [executor_client]: Plan Succeeded
+
+Successful finished
+> set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis))
+> get plan
+plan:
+0:      (activate_sealing_site r1 pod2 vs)      [1]
+1.001:  (move_into_tunnel_from_site r1 pod2 tunnel vs)  [3]
+4.002:  (move_out_of_tunnel_to_site r1 tunnel cryo vs)  [3]
+7.003:  (deactivate_sealing_site r1 cryo vs)    [1]
+8.004:  (load_site r1 cs1 cryo slot1 vs)        [1]
+9.005:  (activate_sealing_site r1 cryo vs)      [1]
+10.006: (move_into_tunnel_from_site r1 cryo tunnel vs)  [3]
+13.007: (move_out_of_tunnel_to_site r1 tunnel stasis vs)        [3]
+16.008: (deactivate_sealing_site r1 stasis vs)  [1]
+17.009: (unload_site r1 cs1 stasis slot1 vs)    [1]
+> run
+[INFO] [1777929391.237853543] [executor_client]: Plan Succeeded
+
+Successful finished
+> set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis) (artifact_at cs2 stasis))
+> get plan
+plan:
+0:      (activate_sealing_site r1 stasis vs)    [1]
+1.001:  (move_into_tunnel_from_site r1 stasis tunnel vs)        [3]
+4.002:  (move_out_of_tunnel_to_site r1 tunnel cryo vs)  [3]
+7.003:  (deactivate_sealing_site r1 cryo vs)    [1]
+8.004:  (load_site r1 cs2 cryo slot1 vs)        [1]
+9.005:  (activate_sealing_site r1 cryo vs)      [1]
+10.006: (move_into_tunnel_from_site r1 cryo tunnel vs)  [3]
+13.007: (move_out_of_tunnel_to_site r1 tunnel stasis vs)        [3]
+16.008: (deactivate_sealing_site r1 stasis vs)  [1]
+17.009: (unload_site r1 cs2 stasis slot1 vs)    [1]
+> run
+[INFO] [1777929469.301371552] [executor_client]: Plan Succeeded
+
+Successful finished
+> set goal (and (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis) (artifact_at cs2 stasis) (artifact_at a1 cryo))
+> get plan
+plan:
+0:      (activate_sealing_site r1 stasis vs)    [1]
+1.001:  (move_into_tunnel_from_site r1 stasis tunnel vs)        [3]
+4.002:  (move_out_of_tunnel_to_site r1 tunnel halla vs) [3]
+7.003:  (deactivate_sealing_site r1 halla vs)   [1]
+8.004:  (load_site r1 a1 halla slot1 vs)        [1]
+9.005:  (activate_sealing_site r1 halla vs)     [1]
+10.006: (move_into_tunnel_from_site r1 halla tunnel vs) [3]
+13.007: (move_out_of_tunnel_to_site r1 tunnel cryo vs)  [3]
+16.008: (deactivate_sealing_site r1 cryo vs)    [1]
+17.009: (unload_site r1 a1 cryo slot1 vs)       [1]
+> run
+[INFO] [1777929547.960255838] [executor_client]: Plan Succeeded
+
+Successful finished
+> set goal (and (artifact_at a1 cryo) (artifact_at a2 cryo) (artifact_at b1 pod1) (artifact_at b2 pod2) (artifact_at cs1 stasis) (artifact_at cs2 stasis))
+> get plan
+plan:
+0:      (activate_sealing_site r1 cryo vs)      [1]
+1.001:  (move_into_tunnel_from_site r1 cryo tunnel vs)  [3]
+4.002:  (move_out_of_tunnel_to_site r1 tunnel halla vs) [3]
+7.003:  (deactivate_sealing_site r1 halla vs)   [1]
+8.004:  (load_site r1 a2 halla slot1 vs)        [1]
+9.005:  (activate_sealing_site r1 halla vs)     [1]
+10.006: (move_into_tunnel_from_site r1 halla tunnel vs) [3]
+13.007: (move_out_of_tunnel_to_site r1 tunnel cryo vs)  [3]
+16.008: (deactivate_sealing_site r1 cryo vs)    [1]
+17.009: (unload_site r1 a2 cryo slot1 vs)       [1]
+> run
+[INFO] [1777929624.150778304] [executor_client]: Plan Succeeded
+
+Successful finished 

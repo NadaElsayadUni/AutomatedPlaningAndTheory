@@ -1,0 +1,128 @@
+(define (domain imv-htn)
+  (:requirements :strips :typing :hierachie)
+  (:types location artifact robot slot)
+  (:predicates
+    (at ?r - robot ?l - location)
+    (artifact_at ?a - artifact ?l - location)
+    (slot_free ?r - robot ?s - slot)
+    (in_slot ?a - artifact ?r - robot ?s - slot)
+    (robot_slot ?r - robot ?s - slot)
+    (connected ?from ?to - location)
+  )
+
+  (:task relocate_all
+    :parameters ()
+    :precondition ()
+    :effect ()
+  )
+  (:task deliver_hallA_pair_to_cryo
+    :parameters ()
+    :precondition ()
+    :effect ()
+  )
+  (:task deliver_hallB_pair_to_pods
+    :parameters ()
+    :precondition ()
+    :effect ()
+  )
+  (:task deliver_core_pair_to_stasis
+    :parameters ()
+    :precondition ()
+    :effect ()
+  )
+
+  (:method m_relocate_all
+    :parameters ()
+    :task (relocate_all)
+    :subtasks (and
+      (task0 (deliver_hallA_pair_to_cryo))
+      (task1 (deliver_hallB_pair_to_pods))
+      (task2 (deliver_core_pair_to_stasis))
+    )
+    :ordering (and
+      (task0 < task1)
+      (task1 < task2)
+    )
+  )
+
+  (:method m_deliver_hallA_pair_cryo
+    :parameters ()
+    :task (deliver_hallA_pair_to_cryo)
+    :subtasks (and
+      (task0 (move r1 entrance tunnel))
+      (task1 (move r1 tunnel hallA))
+      (task2 (load r1 a1 hallA slot1))
+      (task3 (load r1 a2 hallA slot2))
+      (task4 (move r1 hallA tunnel))
+      (task5 (move r1 tunnel cryo))
+      (task6 (unload r1 a1 cryo slot1))
+      (task7 (unload r1 a2 cryo slot2))
+      (task8 (move r1 cryo tunnel))
+      (task9 (move r1 tunnel entrance))
+    )
+    :ordering (and
+      (task0 < task1) (task1 < task2) (task2 < task3) (task3 < task4)
+      (task4 < task5) (task5 < task6) (task6 < task7) (task7 < task8)
+      (task8 < task9)
+    )
+  )
+
+  (:method m_deliver_hallB_pair_pods
+    :parameters ()
+    :task (deliver_hallB_pair_to_pods)
+    :subtasks (and
+      (task0 (move r1 entrance tunnel))
+      (task1 (move r1 tunnel hallB))
+      (task2 (load r1 b1 hallB slot1))
+      (task3 (load r1 b2 hallB slot2))
+      (task4 (move r1 hallB tunnel))
+      (task5 (move r1 tunnel pod1))
+      (task6 (unload r1 b1 pod1 slot1))
+      (task7 (move r1 pod1 tunnel))
+      (task8 (move r1 tunnel pod2))
+      (task9 (unload r1 b2 pod2 slot2))
+      (task10 (move r1 pod2 tunnel))
+      (task11 (move r1 tunnel entrance))
+    )
+    :ordering (and
+      (task0 < task1) (task1 < task2) (task2 < task3) (task3 < task4)
+      (task4 < task5) (task5 < task6) (task6 < task7) (task7 < task8)
+      (task8 < task9) (task9 < task10) (task10 < task11)
+    )
+  )
+
+  (:method m_deliver_core_pair_stasis
+    :parameters ()
+    :task (deliver_core_pair_to_stasis)
+    :subtasks (and
+      (task0 (move r1 entrance tunnel))
+      (task1 (move r1 tunnel cryo))
+      (task2 (load r1 cs1 cryo slot1))
+      (task3 (load r1 cs2 cryo slot2))
+      (task4 (move r1 cryo tunnel))
+      (task5 (move r1 tunnel stasis))
+      (task6 (unload r1 cs1 stasis slot1))
+      (task7 (unload r1 cs2 stasis slot2))
+    )
+    :ordering (and
+      (task0 < task1) (task1 < task2) (task2 < task3) (task3 < task4)
+      (task4 < task5) (task5 < task6) (task6 < task7)
+    )
+  )
+
+  (:action move
+    :parameters (?r - robot ?from ?to - location)
+    :precondition (and (at ?r ?from) (connected ?from ?to))
+    :effect (and (not (at ?r ?from)) (at ?r ?to))
+  )
+  (:action load
+    :parameters (?r - robot ?a - artifact ?l - location ?s - slot)
+    :precondition (and (at ?r ?l) (artifact_at ?a ?l) (slot_free ?r ?s) (robot_slot ?r ?s))
+    :effect (and (not (slot_free ?r ?s)) (in_slot ?a ?r ?s) (not (artifact_at ?a ?l)))
+  )
+  (:action unload
+    :parameters (?r - robot ?a - artifact ?l - location ?s - slot)
+    :precondition (and (at ?r ?l) (in_slot ?a ?r ?s))
+    :effect (and (slot_free ?r ?s) (not (in_slot ?a ?r ?s)) (artifact_at ?a ?l))
+  )
+)
